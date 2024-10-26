@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potato Wisdom Quotes</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Background and container styling */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      color: black;
+      text-align: center;
+      max-width: 600px;
+      margin-top: 50px;
+    }
+
+    /* Wisdom slider styling */
+    .wisdom-container {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      background: #ddd;
+      outline: none;
+      opacity: 0.7;
+      margin-top: 20px;
+      border-radius: 5px;
+      position: relative;
+    }
+    .slider:hover { opacity: 1; }
+    .potato-emoji {
+      position: absolute;
+      font-size: 20px;
+      transition: left 0.1s;
+      top: 25px;
+    }
+
+    /* Potato container and animation */
+    .potato-container {
+      display: none;
+      margin-top: 20px;
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Prediction display styling */
+    #prediction-display {
+      position: absolute;
+      top: 70px;
+      right: -300px;
+      width: 200px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      display: none; /* Initially hidden */
+      z-index: 2;
+      font-family: 'Arial', sans-serif; /* Font family for the prediction text */
+      font-size: 1rem; /* Font size */
+      color: #333; /* Font color */
+      text-align: center; /* Center align the text */
+    }
+
+    /* Fade-out effect */
+    .fade-out {
+      animation: fadeOut 2s ease-in-out forwards;
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    #your-future {
+      position: absolute;
+      top: 10px;/* Space between the title and prediction */
+      margin-left: 750px;
+    }
+
+  </style>
+</head>
+
+<body class="text-center">
+<div class="background"></div>
+<div class="container">
+  <h1 class="display-4">Potato Wisdom 🥔</h1>
+  <div class="wisdom-container">
+    <span id="wisdom-percentage">0%</span>
+    <span style="margin-left: 10px;">Percentage of Wisdom</span>
+  </div>
+  <div style="position: relative;">
+    <span id="potato-emoji" class="potato-emoji">🥔</span> <!-- Potato Emoji -->
+    <input type="range" id="wisdom-slider" class="slider" min="0" max="100" value="0" />
+  </div>
+
+  <div class="potato-container" id="potato-container">
+    <img src="calm-potato.gif" alt="Philosophical Potato" id="potato-image" class="potato-img" width="200">
+    <div id="potato-quote" class="speech-bubble fade-in">
+      "Click the potato for wisdom."
+    </div>
+    <button id="copy-quote" class="btn btn-primary mt-3">Copy Quote</button>
+    <div id="timer-display" class="mt-3">Time in Potato Enlightenment: 0s</div>
+    <div class="mt-3">
+      <a href="main.html" class="btn btn-secondary">Back to Main Page</a>
+    </div>
+    <!-- Prediction Display -->
+    <div id="prediction-container" class="fade-in" style="display: none;">
+      <div id="your-future" class="fade-in" style="font-weight: bold; font-size: 1.2rem;">Your Future</div>
+      <div id="prediction-display" class="fade-in"></div>
+    </div>
+
+    <!-- Audio Files -->
+    <audio id="audio-1" src="runaud.mp3"></audio>
+    <audio id="audio-2" src="gymaud.mp3"></audio>
+    <audio id="audio-3" src="eataud.mp3"></audio>
+    <audio id="audio-4" src="cookaud.mp3"></audio>
+    <audio id="audio-5" src="angryaudio.mp3"></audio>
+    <audio id="audio-6" src="sadaudio.mp3"></audio>
+    <audio id="audio-7" src="kettaudio.mp3"></audio>
+    <audio id="audio-8" src="byebye.mp3"></audio>
+    <audio id="audio-9" src="medaud.mp3"></audio>
+  </div>
+</div>
+
+<script>
+  // Quotes and GIF configurations
+  const potatoWisdom = [
+    { gif: "giphy1.gif", audio: 'audio-1', quotes: ["Catch me if you can—I'm a spud on the run!", "Running like a potato that just saw a bag of chips!", "When life gives you legs, sprint like a spud!", "Out of the fryer and into the fast lane!"] },
+    { gif: "gym.gif", audio: 'audio-2', quotes: ["I'm here to lift and get my spud gains!", "No pain, no gain—let's mash this workout!", "I'm not just a potato; I'm a muscle-tater!"] },
+    { gif: "fud.gif", audio: 'audio-3', quotes: ["I'm just a spud on a quest for the perfect bite!", "Can't spell 'delicious' without 'us'—let's eat!", "I'm all about that mash life; bring on the butter!"] },
+    { gif: "cook.gif", audio: 'audio-4', quotes: ["Not just a couch potato; I'm a culinary superstar!", "I've got the starch and the heart!", "I'm here to sauté my way into your heart!"] },
+    { gif: "angry.gif", audio: 'audio-5', quotes: ["I'm not just a little mashed; I'm completely fried!", "You've really boiled my blood!", "I'm tuber-ly furious right now!"] },
+    { gif: "sad.gif", audio: 'audio-6', quotes: ["I'm just a humble potato, full of emotions.", "Peel back the layers and find a mash of feelings.", "Life is short, so let's get mashed!"] },
+    { gif: "kett.gif", audio: 'audio-7', quotes: ["I might be small, but I have big dreams!", "Every journey starts with a single sprout.", "Growing roots, reaching heights, staying strong."] },
+    { gif: "tata.gif", audio: 'audio-8', quotes: ["Passport? Check. Let's mash through the world!", "Taking life one fry at a time.", "Traveling the globe, potato-style!"] },
+    { gif: "https://media1.giphy.com/media/B3jqeEtT1y5EP1lKGu/200_d.gif", audio: 'audio-9', quotes: ["The best things in life are peeled slowly.", "A wise potato knows when to mash.", "Sometimes, we need to peel back layers."] }
+  ];
+
+  const predictions = [
+    "Today is your day to shine like a perfectly roasted potato!",
+    "Beware of unexpected spud encounters—some may want to fry you!",
+    "Keep your eyes peeled for opportunities; they are often disguised.",
+    "Your path will lead you to unexpected flavors today.",
+    "Embrace your inner potato and stay grounded in all situations."
+  ];
+
+  const wisdomSlider = document.getElementById("wisdom-slider");
+  const wisdomPercentage = document.getElementById("wisdom-percentage");
+  const potatoContainer = document.getElementById("potato-container");
+  const potatoImage = document.getElementById("potato-image");
+  const potatoQuote = document.getElementById("potato-quote");
+  const potatoEmoji = document.getElementById("potato-emoji");
+  const timerDisplay = document.getElementById("timer-display");
+  const predictionDisplay = document.getElementById("prediction-display");
+  const predictionContainer = document.getElementById("prediction-container");
+
+  let currentAudio = null;
+  let currentQuotes = [];
+  let tapCount = 0;
+  let timer = 0;
+  let timerInterval = null;
+
+  // Handle slider input
+  wisdomSlider.addEventListener("input", function() {
+    const value = this.value;
+    wisdomPercentage.textContent = value + "%";
+
+    if (value > 0) {
+      potatoContainer.style.display = "block";
+      const { gif, audio, quotes } = potatoWisdom[Math.floor(value / 10)];
+      potatoImage.src = gif;
+
+      // Play the corresponding audio
+      if (currentAudio) currentAudio.pause();
+      currentAudio = document.getElementById(audio);
+      currentAudio.play();
+
+      // Update quotes for the current GIF
+      currentQuotes = quotes;
+      potatoQuote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    } else {
+      potatoContainer.style.display = "none";
+      if (currentAudio) currentAudio.pause();
+    }
+
+    potatoEmoji.style.left = `calc(${value}% - 10px)`;
+  });
+
+  // Change quote on GIF click and track taps
+  potatoImage.addEventListener("click", function() {
+    if (currentQuotes.length > 0) {
+      potatoQuote.textContent = currentQuotes[Math.floor(Math.random() * currentQuotes.length)];
+    }
+
+    // Increment tap count for each click on the potato image
+    tapCount++;
+
+    // Start timer on first tap
+    if (tapCount === 1) {
+      timerInterval = setInterval(() => {
+        timer++;
+        timerDisplay.textContent = `Time in Potato Enlightenment: ${timer}s`;
+      }, 1000);
+    }
+
+    // Show reflection message and prediction every 10 taps
+    if (tapCount % 10 === 0) {
+      clearInterval(timerInterval); // Stop the timer
+      const minutes = Math.floor(timer / 60);
+      const seconds = timer % 60;
+      alert(`Reflect on your time spent: ${minutes}m ${seconds}s.\nLife’s precious, but you’re here, seeking wisdom from a spud.`);
+      timer = 0; // Reset timer
+      timerDisplay.textContent = `Time in Potato Enlightenment: ${timer}s`; // Reset displayed time
+
+      // Show the prediction
+      const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
+      predictionDisplay.textContent = randomPrediction;
+      predictionDisplay.style.display = 'block'; // Show prediction display
+      predictionContainer.style.display = 'block'; // Show the entire prediction container
+
+      // Fade out the prediction after 3 seconds
+      setTimeout(() => {
+        predictionDisplay.classList.add('fade-out'); // Apply fade-out class to prediction
+        setTimeout(() => {
+          predictionDisplay.style.display = 'none'; // Hide prediction display after fade-out
+          predictionContainer.style.display = 'none'; // Hide the entire prediction container
+          predictionDisplay.classList.remove('fade-out'); // Reset for next use
+        }, 2000); // Match this timeout to the fade-out duration
+      }, 3000); // Wait for 3 seconds before fading out the new prediction
+    }
+  });
+
+  // Copy quote functionality
+  document.getElementById("copy-quote").addEventListener("click", function() {
+    navigator.clipboard.writeText(potatoQuote.textContent)
+      .then(() => alert("Quote copied to clipboard!"))
+      .catch(err => console.error("Failed to copy: ", err));
+  });
+</script>
+
+</body>
+</html>

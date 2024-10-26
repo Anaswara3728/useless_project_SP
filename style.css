@@ -1,0 +1,97 @@
+/* styles.css */
+body {
+
+  color: #5d4037; /* Potato skin brown color */
+  font-family: Futura, sans-serif;
+}
+h1 {
+  font-family: "Lucida Handwriting", cursive; /* Change to your desired font */
+  color:#ffffff; /* Change to your desired color */
+  font-size: 2rem; /* Adjust font size if needed */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: Add shadow for better visibility */
+}
+
+#potato-quote {
+  font-style: italic;
+  font-size: 1.5rem;
+  animation: fadeIn 0.8s ease-in-out; /* Initial load animation */
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#new-quote {
+  background-color: #ffffff;
+  border-color: #020020;
+  color: #020020;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Button hover animation */
+#new-quote:hover {
+  background-color: #f0f0f0;
+  border-color: #020020;
+  transform: scale(1.05); /* Slightly enlarges on hover */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Small upward movement */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Applying fade-in on each quote change */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Adding bounce effect to quote on hover */
+#potato-quote:hover {
+  transform: scale(1.02) rotate(-1deg);
+}
+/* Potato Image */
+.potato-container {
+  position: relative;
+  display: inline-block;
+}
+
+.potato-img {
+  width: 300px;
+  cursor: pointer;
+}
+
+/* Speech Bubble Style */
+.speech-bubble {
+  position: absolute;
+  top: -10px;
+  left: 160px;
+  width: 250px;
+  padding: 15px;
+  background: #f5e8c7;
+  border-radius: 10px;
+  color: #5d4037;
+  font-size: 1.2rem;
+  font-style: italic;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transform-origin: left center;
+}
+
+/* Tail for Speech Bubble */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #f5e8c7;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -5px;
+}
