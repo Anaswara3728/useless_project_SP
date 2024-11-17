@@ -2,6 +2,10 @@
 
 # SHIBUDINAM QUOTES 🎯
 
+#HOSTED LINK IS GIVEN BELOW:
+https://useless-project-temp-tau.vercel.app/main.html
+(PLS ENJOY YOUR VALUABLE WASTED TIME WITH US)
+
 
 ## Basic Details
 ### Team Name: INNOVATORS
@@ -93,6 +97,7 @@ For Hardware:
 ### Project Demo
 # Video
 [https://youtu.be/_m5KIRjDsrc](https://youtu.be/_m5KIRjDsrc)
+
 
 
 
